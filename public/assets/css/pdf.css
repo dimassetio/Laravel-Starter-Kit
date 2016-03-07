@@ -1,0 +1,86 @@
+html {
+    margin: 10px 10px 0 10px;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    font-size:10px;
+}
+
+table.main-table {
+    width: 100%;
+}
+
+table.labels-table {
+    font-size:12px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.labels-table td {
+    border-spacing: 2px;
+    padding: 5px;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+.text-center {
+    text-align: center;
+    vertical-align:middle;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.my-trans-print-logo {
+    width: 130px;
+}
+
+.full-bordered {
+    border: 1px solid #000;
+}
+
+table {
+    border-spacing: 1px;
+}
+
+td, th {
+    padding: 0;
+}
+
+td {
+    vertical-align: top;
+}
+
+p {
+    margin: 0 0 3px 0;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+.lead {
+    font-size: 14px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #000;
+    clear: both;
+}
+
+.page-break {
+    page-break-after: always;
+}
+
+.hidden-print {
+    display: none;
+}

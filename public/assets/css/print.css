@@ -1,0 +1,9 @@
+body { font-family: 'Arial', sans-serif; font-size: 80%; }
+h4 { margin: 0; font-weight: bold; }
+table.table { margin-bottom: 5px; width: 100%; }
+table.table, table.table td, table.table th { border: 1px solid #333; border-collapse: collapse; padding: 4px; }
+/*td, th { vertical-align: top; }*/
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.page-break { page-break-after: always; }
+.hidden-print { display: none; }
