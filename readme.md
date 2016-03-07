@@ -1,26 +1,124 @@
-# Laravel PHP Framework
+# Laravel 5.2 Starter Kit
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+This is a starter kit for building new web application with **Laravel 5.2**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Current features
+1. User Authentication
+    - Login & Logout
+    - Register
+    - Change Password
+    - Forgot Password
+    - User Roles and Permissions
+- Users, Roles, Permissions, References, and Site Options Migration and seeder
+- Users CRUD
+- Site Options
+- Database Backup and Restore
+    - use [Laravel Backup Manager](https://github.com/backup-manager/laravel) package
+    - List Backup Files within `/storage/app/backup/db` folder, sort by descending Last Modified time
+    - Create New Backup File
+    - Restore database from Backup File
+    - Download Backup File
+    - Delete Backup File
+    - Upload Backup File from local machine
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+### What Seeders do?
+1. Add 2 Users: **Admin** (with password: *admin*) and **Member** (with password: *member*)
+- Add 2 Roles: `admin` and `member`
+- Assign **Admin** user to `admin` role
+- Assign **Member** user to `member` role
+- Add 4 Permissions: `manage_users`, `manage_options`, `manage_backups`, and `manage_role_permissions`
+- Assign 4 mentioned permission above to `admin` role
 
-## Official Documentation
+## How to use?
+1. Download zip file and Extract to your localhost document directory
+- Or cd into laravel project root and clone the repo
+- (within your favorited terminal) install dependencies with command: `composer install`
+- *wait until it done*
+- don't forget to set permission to storage folder: `sudo chmod 777 -R storage/`
+- run your installed application with: `php artisan serve`
+- open `http://localhost:8000/` from your browser to access the application
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## Custom Services
 
-## Contributing
+### Site Option
+This is like site preferences or settings feature.
+We can use **Site Option** like this within blade file :
+```php
+{{ Option::get('key') }} // value
+// or
+{{ Option::get('site_title') }} // Laravel App
+```
+or within Class file:
+```php
+use Option;
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+class MasterController extends Controller {
 
-## Security Vulnerabilities
+    public function getSiteTitle() {
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+        $siteTitle = Option::get('site_title');
+
+        return $siteTitle;
+    }
+
+}
+```
+
+### Form Field
+
+This service require [Laravel Collective Package](https://laravelcollective.com/docs/5.2/html) and [Bootstrap 3](http://getbootstrap.com/) to make it work.  
+For example we need a text field within our form:
+
+```php
+{!! FormField::text('name') !!}
+```
+will return
+```html
+<div class="form-group ">
+    <label for="name" class="control-label">Name</label>
+    <input class="form-control" name="name" type="text" id="name">
+</div>
+```
+
+Example for Checkbox and Radios.  
+We can use **numeric array** or **associative array** for Labels and Values :
+
+```php
+{!! FormField::checkboxes('group', [1 => 'Admin', 'Member']) !!}
+{!! FormField::radios('status', ['a' => 'Active', 'b' => 'Inactive']) !!}
+```
+will return
+```html
+<!-- Checkboxes -->
+<div class="form-group ">
+    <label for="role" class="control-label">Grup</label>
+    <div class="checkbox">
+        <label for="role_1">
+            <input id="role_1" name="role[]" type="checkbox" value="1">
+            Admin
+        </label>
+        <label for="role_2">
+            <input id="role_2" name="role[]" type="checkbox" value="2">
+            Member
+        </label>
+    </div>
+</div>
+
+<!-- Radios -->
+<div class="form-group ">
+    <label for="role" class="control-label">Status</label>
+    <div class="radio">
+        <label for="role_1">
+            <input id="role_1" name="role" type="radio" value="a">
+            Active
+        </label>
+        <label for="role_2">
+            <input id="role_2" name="role" type="radio" value="b">
+            Inactive
+        </label>
+    </div>
+</div>
+```
 
 ## License
 
