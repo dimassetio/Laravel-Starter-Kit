@@ -12,6 +12,7 @@ return [
     'reset'                 => 'Reset',
     'no'                    => 'Tidak',
     'show'                  => 'Lihat Detail',
+    'label'                 => 'Label',
     'edit'                  => 'Edit Data',
     'print'                 => 'Cetak',
     'search'                => 'Cari',

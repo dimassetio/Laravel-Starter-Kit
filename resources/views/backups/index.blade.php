@@ -46,7 +46,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 {!! Form::open(['route' => 'backups.store','class' => '']) !!}
-                {!! FormField::text('file_name', ['label' => 'Buat Backup Database', 'placeholder' => date('Y-m-d_H.i')]) !!}
+                {!! FormField::text('file_name', ['label' => 'Buat Backup Database', 'placeholder' => date('Y-m-d_Hi')]) !!}
                 {!! Form::submit('Buat Backup', ['class' => 'btn btn-success']) !!}
                 {!! Form::close() !!}
 

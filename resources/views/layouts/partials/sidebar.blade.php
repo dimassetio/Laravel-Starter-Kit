@@ -3,6 +3,8 @@
         <ul class="nav" id="side-menu">
         @can('manage_users')
         <li><a href="{{ route('users.index') }}"><i class="fa fa-users fa-fw"></i> {{ trans('user.users') }}</a></li>
+        <li><a href="{{ route('roles.index') }}"><i class="fa fa-roles fa-fw"></i> {{ trans('role.roles') }}</a></li>
+        <li><a href="{{ route('permissions.index') }}"><i class="fa fa-permissions fa-fw"></i> {{ trans('permission.permissions') }}</a></li>
         @endcan
         @can('manage_backups')
         <li><a href="{{ route('backups.index') }}"><i class="fa fa-refresh fa-fw"></i> Backup/Restore Database</a></li>

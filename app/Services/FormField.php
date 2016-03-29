@@ -33,9 +33,12 @@ class FormField
 
         $htmlForm = '';
         $htmlForm .= '<div class="form-group ' . $hasError . '">';
+
         if (isset($options['label']) && $options['label'] != false) {
             $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
             $htmlForm .= Form::label($name, $label, ['class'=>'control-label']) . '&nbsp;';
+        } elseif (! isset($options['label'])) {
+            $htmlForm .= Form::label($name, str_split_ucwords($name), ['class'=>'control-label']) . '&nbsp;';
         }
 
         if (isset($options['addon'])) { $htmlForm .= '<div class="input-group">'; }
@@ -183,26 +186,26 @@ class FormField
 
     public function checkboxes($name, array $checkboxOptions, $options = [])
     {
-
-        if (isset($options['label'])) {
-            $label = $options['label'] == false ? '' : $options['label'];
-        } else {
-            $label = str_split_ucwords($name);
-        }
-
         $hasError = $this->errorBag->has($name) ? 'has-error' : '';
-        $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
+        // $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
         $value = isset($options['value']) ? $options['value'] : new Collection;
 
         $htmlForm = '<div class="form-group ' . $hasError . '">';
-        $htmlForm .= Form::label($name, $label, ['class'=>'control-label']);
+
+        if (isset($options['label']) && $options['label'] != false) {
+            $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
+            $htmlForm .= Form::label($name, $label, ['class'=>'control-label']) . '&nbsp;';
+        } elseif (! isset($options['label'])) {
+            $htmlForm .= Form::label($name, str_split_ucwords($name), ['class'=>'control-label']) . '&nbsp;';
+        }
+
         $htmlForm .= '<div class="checkbox">';
 
         foreach ($checkboxOptions as $key => $option) {
-            $htmlForm .= '<label for="' . $name . '_' . $key . '" style="margin-right: 20px;">';
+            $htmlForm .= '<li><label for="' . $name . '_' . $key . '">';
             $htmlForm .= Form::checkbox($name . '[]', $key, $value->contains($key), ['id' => $name . '_' . $key]);
             $htmlForm .= $option;
-            $htmlForm .= '</label>';
+            $htmlForm .= '</label></li>';
         }
         $htmlForm .= '</div>';
         $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');

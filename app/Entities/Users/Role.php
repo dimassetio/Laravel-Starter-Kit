@@ -8,7 +8,7 @@ class Role extends Model
 {
     protected $table = 'roles_permissions';
 
-	protected $guarded = ['id'];
+	protected $fillable = ['type','name','label'];
     public $timestamps = false;
 
     /**
@@ -30,5 +30,10 @@ class Role extends Model
     public function givePermissionTo(Permission $permission)
     {
         return $this->permissions()->save($permission);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'role_user');
     }
 }

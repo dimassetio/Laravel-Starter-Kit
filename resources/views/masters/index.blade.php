@@ -6,7 +6,7 @@
     {{ trans('master.masters') }} <small>{{ $masters->total() }} {{ trans('master.found') }}</small>
 </h1>
 {!! Form::open(['method'=>'get','class'=>'pull-right index-search-form']) !!}
-{!! Form::text('q', Input::get('q'), ['class'=>'form-control','placeholder'=>trans('master.search')]) !!}
+{!! Form::text('q', Request::get('q'), ['class'=>'form-control','placeholder'=>trans('master.search')]) !!}
 {!! Form::close() !!}
 <table class="table table-condensed">
     <thead>
@@ -35,5 +35,5 @@
         @endforelse
     </tbody>
 </table>
-    {!! str_replace('/?', '?', $masters->appends(Input::except('page'))->render()) !!}
+    {!! str_replace('/?', '?', $masters->appends(Request::except('page'))->render()) !!}
 @endsection

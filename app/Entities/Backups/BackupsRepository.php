@@ -38,7 +38,7 @@ class BackupsRepository
     public function create($backupData)
     {
         $manager = app()->make(Manager::class);
-        $fileName = $backupData['file_name'] ?: date('Y-m-d_H.i');
+        $fileName = $backupData['file_name'] ?: date('Y-m-d_Hi');
         try {
             $manager->makeBackup()->run('mysql', [
                     new Destination($this->storageType, 'backup/db/' . $fileName)
