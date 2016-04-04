@@ -89,15 +89,15 @@
             <thead>
                 <th>{{ trans('app.table_no') }}</th>
                 <th>{{ trans('app.name') }}</th>
-                <th>{{ trans('app.label') }}</th>
+                <th class="text-center">Jumlah User</th>
                 <th>{{ trans('app.action') }}</th>
             </thead>
             <tbody>
                 @forelse($roles as $key => $role)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $role->name }}</td>
                     <td>{{ $role->label }}</td>
+                    <td class="text-center">{{ $role->users()->count() }}</td>
                     <td>
                         {!! link_to_route('roles.index','detail',['act' => 'show', 'id' => $role->id],['class'=>'btn btn-info btn-xs']) !!}
                         {!! link_to_route('roles.index','edit',['act' => 'edit', 'id' => $role->id],['class'=>'btn btn-warning btn-xs']) !!}

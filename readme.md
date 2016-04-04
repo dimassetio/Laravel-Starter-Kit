@@ -66,7 +66,7 @@ class MasterController extends Controller {
 
 ### Form Field
 
-This service require [Laravel Collective Package](https://laravelcollective.com/docs/5.2/html) and [Bootstrap 3](http://getbootstrap.com/) to make it work.  
+This service require [Laravel Collective Package](https://laravelcollective.com/docs/5.2/html) and [Bootstrap 3](http://getbootstrap.com/) to make it work.
 For example we need a text field within our form:
 
 ```php
@@ -80,7 +80,7 @@ will return
 </div>
 ```
 
-Example for Checkbox and Radios.  
+Example for Checkbox and Radios.
 We can use **numeric array** or **associative array** for Labels and Values :
 
 ```php
