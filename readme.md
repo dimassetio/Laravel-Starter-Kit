@@ -91,29 +91,32 @@ will return
 ```html
 <!-- Checkboxes -->
 <div class="form-group ">
-    <label for="role" class="control-label">Grup</label>
+    <label for="group" class="control-label">Group</label>
     <div class="checkbox">
-        <label for="role_1">
-            <input id="role_1" name="role[]" type="checkbox" value="1">
-            Admin
-        </label>
-        <label for="role_2">
-            <input id="role_2" name="role[]" type="checkbox" value="2">
-            Member
-        </label>
+        <li>
+            <label for="group_1">
+                <input id="group_1" name="group[]" type="checkbox" value="1">
+                Admin
+            </label>
+        </li>
+        <li>
+            <label for="group_2">
+                <input id="group_2" name="group[]" type="checkbox" value="2">
+                Member
+            </label>
+        </li>
     </div>
 </div>
 
 <!-- Radios -->
 <div class="form-group ">
-    <label for="role" class="control-label">Status</label>
     <div class="radio">
-        <label for="role_1">
-            <input id="role_1" name="role" type="radio" value="a">
+        <label for="status_a">
+            <input id="status_a" name="status" type="radio" value="a">
             Active
         </label>
-        <label for="role_2">
-            <input id="role_2" name="role" type="radio" value="b">
+        <label for="status_b">
+            <input id="status_b" name="status" type="radio" value="b">
             Inactive
         </label>
     </div>
