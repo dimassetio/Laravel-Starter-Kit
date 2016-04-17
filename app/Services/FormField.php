@@ -4,7 +4,6 @@ namespace App\Services;
 use Form;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Lang;
 use Session;
 
 /**
@@ -25,21 +24,15 @@ class FormField
     public function text($name, $options = [])
     {
         $hasError = $this->errorBag->has($name) ? 'has-error' : '';
+        $htmlForm = '<div class="form-group ' . $hasError . '">';
+
         $value = isset($options['value']) ? $options['value'] : null;
         $type = isset($options['type']) ? $options['type'] : 'text';
 
         $fieldParams = ['class'=>'form-control'];
         if (isset($options['class'])) { $fieldParams['class'] .= ' ' . $options['class']; }
 
-        $htmlForm = '';
-        $htmlForm .= '<div class="form-group ' . $hasError . '">';
-
-        if (isset($options['label']) && $options['label'] != false) {
-            $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
-            $htmlForm .= Form::label($name, $label, ['class'=>'control-label']) . '&nbsp;';
-        } elseif (! isset($options['label'])) {
-            $htmlForm .= Form::label($name, str_split_ucwords($name), ['class'=>'control-label']) . '&nbsp;';
-        }
+        $htmlForm .= $this->setFormFieldLabel($name, $options);
 
         if (isset($options['addon'])) { $htmlForm .= '<div class="input-group">'; }
         if (isset($options['addon']['before'])) {
@@ -50,6 +43,8 @@ class FormField
         if (isset($options['required']) && $options['required'] == true) { $fieldParams += ['required']; }
         if (isset($options['min'])) { $fieldParams += ['min' => $options['min']]; }
         if (isset($options['placeholder'])) { $fieldParams += ['placeholder' => $options['placeholder']]; }
+        if (isset($options['style'])) { $fieldParams += ['style' => $options['style']]; }
+        if (isset($options['id'])) { $fieldParams += ['id' => $options['id']]; }
 
         $htmlForm .= Form::input($type, $name, $value, $fieldParams);
 
@@ -70,7 +65,8 @@ class FormField
     public function textarea($name, $options = [])
     {
         $hasError = $this->errorBag->has($name) ? 'has-error' : '';
-        $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
+        $htmlForm = '<div class="form-group ' . $hasError . '">';
+
         $rows = isset($options['rows']) ? $options['rows'] : 5;
         $value = isset($options['value']) ? $options['value'] : null;
 
@@ -81,8 +77,8 @@ class FormField
         if (isset($options['required']) && $options['required'] == true) { $fieldParams += ['required']; }
         if (isset($options['placeholder'])) { $fieldParams += ['placeholder' => $options['placeholder']]; }
 
-        $htmlForm = '<div class="form-group ' . $hasError . '">';
-        $htmlForm .= Form::label($name, $label, ['class'=>'control-label']);
+        $htmlForm .= $this->setFormFieldLabel($name, $options);
+
         $htmlForm .= Form::textarea($name, $value, $fieldParams);
         $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');
         $htmlForm .= '</div>';
@@ -93,7 +89,8 @@ class FormField
     public function select($name, $selectOptions, $options = [])
     {
         $hasError = $this->errorBag->has($name) ? 'has-error' : '';
-        $htmlForm = '';
+        $htmlForm .= '<div class="form-group ' . $hasError . '">';
+
         $value = isset($options['value']) ? $options['value'] : null;
 
         $fieldParams = ['class'=>'form-control'];
@@ -105,11 +102,7 @@ class FormField
         if (isset($options['multiple']) && $options['multiple'] == true) { $fieldParams += ['multiple', 'name' => $name . '[]']; }
         if (isset($options['placeholder'])) { $fieldParams += ['placeholder' => $options['placeholder']]; }
 
-        $htmlForm .= '<div class="form-group ' . $hasError . '">';
-        if (isset($options['label']) && $options['label'] != false) {
-            $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
-            $htmlForm .= Form::label($name, $label, ['class'=>'control-label']);
-        }
+        $htmlForm .= $this->setFormFieldLabel($name, $options);
 
         $htmlForm .= Form::select($name, $selectOptions, $value, $fieldParams);
         $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');
@@ -128,25 +121,14 @@ class FormField
 
     public function email($name, $options = [])
     {
-        $option['type'] = 'email';
+        $options['type'] = 'email';
         return $this->text($name, $options);
     }
 
     public function password($name, $options = [])
     {
-        $hasError = $this->errorBag->has($name) ? 'has-error' : '';
-        $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
-
-        $htmlForm = '<div class="form-group ' . $hasError . '">';
-        $htmlForm .= Form::label($name, $label, ['class'=>'control-label']);
-        $htmlForm .= Form::password($name, ['class'=>'form-control']);
-        if (isset($options['info'])) {
-            $htmlForm .= '<p class="text-' . $options['info']['class'] . ' small">' . $options['info']['text'] . '</p>';
-        }
-        $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');
-        $htmlForm .= '</div>';
-
-        return $htmlForm;
+        $options['type'] = 'password';
+        return $this->text($name, $options);
     }
 
     public function radios($name, array $radioOptions, $options = [])
@@ -156,27 +138,25 @@ class FormField
         $htmlForm = '';
 
         $htmlForm .= '<div class="form-group ' . $hasError . '">';
-        if (isset($options['label']) && $options['label'] != false) {
-            $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
-            $htmlForm .= Form::label($name, $label, ['class'=>'control-label']);
-        }
 
-        $htmlForm .= '<div class="radio">';
+        $htmlForm .= $this->setFormFieldLabel($name, $options);
+
+        $htmlForm .= '<ul class="radio list-unstyled">';
 
         foreach ($radioOptions as $key => $option) {
 
             $value = null;
+            $fieldParams = ['id' => $name . '_' . $key];
 
-            if (isset($options['value']) && $options['value'] == $key) {
-                $value = true;
-            }
+            if (isset($options['value']) && $options['value'] == $key) { $value = true; }
+            if (isset($options['v-model'])) { $fieldParams += ['v-model' => $options['v-model']]; }
 
-            $htmlForm .= '<label for="' . $name . '_' . $key . '" style="margin-right: 14px;">';
-            $htmlForm .= Form::radio($name, $key, $value, ['id' => $name . '_' . $key]);
+            $htmlForm .= '<li><label for="' . $name . '_' . $key . '">';
+            $htmlForm .= Form::radio($name, $key, $value, $fieldParams);
             $htmlForm .= $option;
-            $htmlForm .= '</label>';
+            $htmlForm .= '</label></li>';
         }
-        $htmlForm .= '</div>';
+        $htmlForm .= '</ul>';
         $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');
 
         $htmlForm .= '</div>';
@@ -192,22 +172,20 @@ class FormField
 
         $htmlForm = '<div class="form-group ' . $hasError . '">';
 
-        if (isset($options['label']) && $options['label'] != false) {
-            $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
-            $htmlForm .= Form::label($name, $label, ['class'=>'control-label']) . '&nbsp;';
-        } elseif (! isset($options['label'])) {
-            $htmlForm .= Form::label($name, str_split_ucwords($name), ['class'=>'control-label']) . '&nbsp;';
-        }
+        $htmlForm .= $this->setFormFieldLabel($name, $options);
 
-        $htmlForm .= '<div class="checkbox">';
+        $htmlForm .= '<ul class="checkbox list-unstyled">';
 
         foreach ($checkboxOptions as $key => $option) {
+            $fieldParams = ['id' => $name . '_' . $key];
+            if (isset($options['v-model'])) { $fieldParams += ['v-model' => $options['v-model']]; }
+
             $htmlForm .= '<li><label for="' . $name . '_' . $key . '">';
-            $htmlForm .= Form::checkbox($name . '[]', $key, $value->contains($key), ['id' => $name . '_' . $key]);
+            $htmlForm .= Form::checkbox($name . '[]', $key, $value->contains($key), $fieldParams);
             $htmlForm .= $option;
             $htmlForm .= '</label></li>';
         }
-        $htmlForm .= '</div>';
+        $htmlForm .= '</ul>';
         $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');
         $htmlForm .= '</div>';
 
@@ -232,7 +210,8 @@ class FormField
         $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
 
         $htmlForm = '<div class="form-group ' . $hasError . '">';
-        $htmlForm .= Form::label($name, $label, ['class'=>'control-label']) . '&nbsp;';
+        $htmlForm .= $this->setFormFieldLabel($name, $options);
+
         $htmlForm .= Form::file($name, ['class'=>'form-control']);
         if (isset($options['info'])) {
             $htmlForm .= '<p class="text-' . $options['info']['class'] . ' small">' . $options['info']['text'] . '</p>';
@@ -243,7 +222,7 @@ class FormField
         return $htmlForm;
     }
 
-    public function delete($form_params = [], $button_label = 'Delete', $button_options = [], $hiddenFields = [])
+    public function delete($form_params = [], $button_label = 'x', $button_options = [], $hiddenFields = [])
     {
         $form_params['method'] = 'delete';
         $form_params['class'] = isset($form_params['class']) ? $form_params['class'] : 'del-form';
@@ -253,7 +232,7 @@ class FormField
             $button_options['class'] = 'pull-right';
 
         if (! isset($button_options['title']))
-            $button_options['title'] = 'Delete this record';
+            $button_options['title'] = 'Remove this';
 
         $htmlForm = Form::open($form_params);
         if (!empty($hiddenFields))
@@ -299,5 +278,15 @@ class FormField
         $htmlForm .= '</div>';
 
         return $htmlForm;
+    }
+
+    public function setFormFieldLabel($name, $options)
+    {
+        if (isset($options['label']) && $options['label'] != false) {
+            $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
+            return Form::label($name, $label, ['class'=>'control-label']) . '&nbsp;';
+        } elseif (! isset($options['label'])) {
+            return Form::label($name, str_split_ucwords($name), ['class'=>'control-label']) . '&nbsp;';
+        }
     }
 }
