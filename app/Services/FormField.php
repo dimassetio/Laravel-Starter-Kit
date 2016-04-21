@@ -53,7 +53,8 @@ class FormField
         }
         if (isset($options['addon'])) { $htmlForm .= '</div>'; }
         if (isset($options['info'])) {
-            $htmlForm .= '<p class="text-' . $options['info']['class'] . ' small">' . $options['info']['text'] . '</p>';
+            $class = isset($options['info']['class']) ? $options['info']['class'] : 'info';
+            $htmlForm .= '<p class="text-' . $class . ' small">' . $options['info']['text'] . '</p>';
         }
         $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');
 
@@ -89,7 +90,7 @@ class FormField
     public function select($name, $selectOptions, $options = [])
     {
         $hasError = $this->errorBag->has($name) ? 'has-error' : '';
-        $htmlForm .= '<div class="form-group ' . $hasError . '">';
+        $htmlForm = '<div class="form-group ' . $hasError . '">';
 
         $value = isset($options['value']) ? $options['value'] : null;
 
@@ -135,13 +136,11 @@ class FormField
     {
         $hasError = $this->errorBag->has($name) ? 'has-error' : '';
 
-        $htmlForm = '';
-
-        $htmlForm .= '<div class="form-group ' . $hasError . '">';
-
+        $htmlForm = '<div class="form-group ' . $hasError . '">';
         $htmlForm .= $this->setFormFieldLabel($name, $options);
 
-        $htmlForm .= '<ul class="radio list-unstyled">';
+        $listStyle = isset($options['list_style']) ? $options['list_style'] : 'inline';
+        $htmlForm .= '<ul class="radio list-' . $listStyle . '">';
 
         foreach ($radioOptions as $key => $option) {
 
@@ -154,7 +153,7 @@ class FormField
             $htmlForm .= '<li><label for="' . $name . '_' . $key . '">';
             $htmlForm .= Form::radio($name, $key, $value, $fieldParams);
             $htmlForm .= $option;
-            $htmlForm .= '</label></li>';
+            $htmlForm .= '&nbsp;</label></li>';
         }
         $htmlForm .= '</ul>';
         $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');
@@ -167,14 +166,14 @@ class FormField
     public function checkboxes($name, array $checkboxOptions, $options = [])
     {
         $hasError = $this->errorBag->has($name) ? 'has-error' : '';
-        // $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);
-        $value = isset($options['value']) ? $options['value'] : new Collection;
-
         $htmlForm = '<div class="form-group ' . $hasError . '">';
 
         $htmlForm .= $this->setFormFieldLabel($name, $options);
 
-        $htmlForm .= '<ul class="checkbox list-unstyled">';
+        $listStyle = isset($options['list_style']) ? $options['list_style'] : 'inline';
+        $htmlForm .= '<ul class="checkbox list-' . $listStyle . '">';
+
+        $value = isset($options['value']) ? $options['value'] : new Collection;
 
         foreach ($checkboxOptions as $key => $option) {
             $fieldParams = ['id' => $name . '_' . $key];
@@ -183,7 +182,7 @@ class FormField
             $htmlForm .= '<li><label for="' . $name . '_' . $key . '">';
             $htmlForm .= Form::checkbox($name . '[]', $key, $value->contains($key), $fieldParams);
             $htmlForm .= $option;
-            $htmlForm .= '</label></li>';
+            $htmlForm .= '&nbsp;</label></li>';
         }
         $htmlForm .= '</ul>';
         $htmlForm .= $this->errorBag->first($name, '<span class="form-error">:message</span>');

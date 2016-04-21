@@ -78,7 +78,7 @@
                 {!! FormField::checkboxes('permission', $permissions->lists('label','id')->all(), ['value' => $role->permissions,'label'=>false]) !!}
             </div>
             <div class="panel-footer">
-                {!! Form::submit(trans('roles.update'), ['class' => 'btn btn-warning']) !!}
+                {!! Form::submit(trans('role.update'), ['class' => 'btn btn-warning']) !!}
             </div>
         </div>
         {!! Form::close() !!}
@@ -89,7 +89,7 @@
             <thead>
                 <th>{{ trans('app.table_no') }}</th>
                 <th>{{ trans('app.name') }}</th>
-                <th class="text-center">Jumlah User</th>
+                <th class="text-center">{{ trans('role.user_count') }}</th>
                 <th>{{ trans('app.action') }}</th>
             </thead>
             <tbody>
