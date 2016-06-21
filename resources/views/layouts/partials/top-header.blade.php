@@ -1,6 +1,6 @@
-<div style="padding:10px 10px;vertical-align:middle">
+<div class="hidden-print" style="padding:10px 10px;vertical-align:middle">
     @if (auth()->user())
-    <div class="pull-right hidden-xs" style="margin: -6px;">
+    <div class="pull-right hidden-xs" style="position: absolute; left: auto; right: 0;">
         <div class="panel panel-warning text-center">
             <div class="panel-heading" style="margin:auto 0">
                 User: {{ auth()->user()->present()->usernameRoles }}
@@ -10,8 +10,8 @@
         </div>
     </div>
     @endif
-    <a class="logo-brand" title="Tracer Study STIMI Banjarmasin" href="{{ route('home') }}">
-        <img src="{{ url('assets/imgs/logo.png') }}" alt="Logo {{ Option::get('app_name', 'Aplikasi Laravel') }}" width="50px">
+    <a class="logo-brand" title="{{ Option::get('app_name', 'Aplikasi Laravel') }}" href="{{ route('home') }}">
+        <img src="{{ url('assets/imgs/logo.png') }}" alt="Logo {{ Option::get('app_name', 'Aplikasi Laravel') }}" width="60px">
         <h1>{{ Option::get('app_name', 'Aplikasi Laravel') }} <br><small>{{ Option::get('app_tagline', 'Tagline Aplikasi Laravel') }}</small></h1>
     </a>
 </div>
