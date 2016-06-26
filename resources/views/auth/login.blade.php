@@ -1,11 +1,13 @@
 @extends('layouts.guest')
 
+@section('title', trans('auth.login'))
+
 @section('content')
 <div class="login-panel col-md-4 col-md-offset-4">
     <div class="text-center">
-        <img src="{{ url('assets/imgs/logo.png') }}" alt="Logo {{ Option::get('site_owner') }}">
+        <img src="{{ url('assets/imgs/logo.png') }}" alt="Logo {{ Option::get('app_owner') }}">
     </div>
-    <h3 class="text-center">{{ Option::get('site_title','Laravel') }}</h3>
+    <h3 class="text-center">{{ Option::get('app_title','Aplikasi Laravel') }}</h3>
     <div class="panel panel-default">
         <div class="panel-body">
             @include('flash::message')
@@ -18,7 +20,7 @@
                 {!! Form::password('password', ['class'=>'form-control', 'placeholder'=> trans('auth.password')]) !!}
             </div>
             <div class="checkbox">
-                {{-- <label><input name="remember" type="checkbox" value="Remember Me">Remember Me</label> --}}
+                <label><input name="remember" type="checkbox" value="Remember Me">Remember Me</label>
                 {!! link_to_route('auth.forgot-password', trans('auth.forgot_password'),[],['class'=>'pull-right']) !!}
             </div>
             {!! Form::submit(trans('auth.login'), ['class'=>'btn btn-success btn-block']) !!}
@@ -26,6 +28,5 @@
             {!! Form::close() !!}
         </div>
     </div>
-		@include('layouts.partials.footer')
 </div>
 @endsection

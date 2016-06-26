@@ -5,9 +5,9 @@
             <span class="sr-only">Toggle navigation</span>
             Menu
         </button>
-        <a class="navbar-brand" title="Home | {{ Option::get('site_description', 'Laravel app description') }}" href="{{ route('home') }}">
+        <a class="navbar-brand" title="Home | {{ Option::get('app_description', 'Laravel app description') }}" href="{{ route('home') }}">
             <img src="{{ url('assets/imgs/logo.png') }}" alt="Logo STIMI Banjarmasin" width="40px">
-            {{ Option::get('site_title', 'Laravel') }}
+            {{ Option::get('app_title', 'Laravel') }}
         </a>
     </div>
     <!-- /.navbar-header -->

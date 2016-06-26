@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>{{ Option::get('site_title', 'Laravel') }}</title>
+    <title>@yield('title', Option::get('app_name', 'Aplikasi Laravel'))</title>
 
     {{-- {!! Html::style('assets/css/bootstrap.min.css') !!} --}}
     {!! Html::style('assets/css/print.css') !!}

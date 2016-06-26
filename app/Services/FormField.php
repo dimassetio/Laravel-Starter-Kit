@@ -211,7 +211,14 @@ class FormField
         $htmlForm = '<div class="form-group ' . $hasError . '">';
         $htmlForm .= $this->setFormFieldLabel($name, $options);
 
-        $htmlForm .= Form::file($name, ['class'=>'form-control']);
+        $fieldParams = ['class'=>'form-control'];
+        if (isset($options['class'])) { $fieldParams['class'] .= ' ' . $options['class']; }
+        if (isset($options['multiple']) && $options['multiple'] == true) {
+            $name = $name . '[]';
+            $fieldParams += ['multiple' => true];
+        }
+
+        $htmlForm .= Form::file($name, $fieldParams);
         if (isset($options['info'])) {
             $htmlForm .= '<p class="text-' . $options['info']['class'] . ' small">' . $options['info']['text'] . '</p>';
         }

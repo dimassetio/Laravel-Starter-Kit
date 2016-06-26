@@ -1,5 +1,7 @@
 @extends('layouts.guest')
 
+@section('title', trans('auth.register'))
+
 @section('content')
 <div class="col-md-6 col-md-offset-3">
     <div class="login-panel panel panel-default">
@@ -46,6 +48,5 @@
             {!! Form::close() !!}
         </div>
     </div>
-		@include('layouts.partials.footer')
 </div>
 @endsection

@@ -1,38 +1,24 @@
 @extends('layouts.guest')
 
+@section('title', trans('auth.reset_password'))
+
 @section('content')
 <div class="col-md-6 col-md-offset-3">
     <div class="login-panel panel panel-default">
         <div class="panel-heading"><h3 class="panel-title">Reset Password</h3></div>
+        {!! Form::open(['route'=>'auth.post-reset']) !!}
         <div class="panel-body">
             @include('auth.partials._notifications')
-            {!! Form::open(['route'=>'auth.post-reset','class'=>'form-horizontal']) !!}
-            <div class="form-group {!! $errors->has('email') ? 'has-error' : ''; !!}">
-                {!! Form::label('email', trans('user.email'), ['class'=>'col-md-5 control-label']) !!}
-                <div class="col-md-6">
-                    {!! Form::email('email', null, ['class'=>'form-control','placeholder'=>trans('user.email')]) !!}
-                </div>
-            </div>
-            <div class="form-group {!! $errors->has('password') ? 'has-error' : ''; !!}">
-                {!! Form::label('password', trans('user.new_password'), ['class'=>'col-md-5 control-label']) !!}
-                <div class="col-md-6">
-                    {!! Form::password('password', ['class'=>'form-control','placeholder'=>trans('user.new_password')]) !!}
-                </div>
-            </div>
-            <div class="form-group {!! $errors->has('password_confirmation') ? 'has-error' : ''; !!}">
-                {!! Form::label('password_confirmation', trans('user.new_password_confirmation'), ['class'=>'col-md-5 control-label']) !!}
-                <div class="col-md-6">
-                    {!! Form::password('password_confirmation', ['class'=>'form-control','placeholder'=>trans('user.new_password_confirmation')]) !!}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-6 col-md-offset-5">
-                    {!! Form::submit('Reset Password', ['class'=>'btn btn-info']) !!}
-                </div>
-            </div>
+            <p>Silakan melakukan reset password dengan mengisi form berikut :</p>
+            {!! FormField::email('email') !!}
+            {!! FormField::password('password', ['label' => trans('auth.new_password')]) !!}
+            {!! FormField::password('password_confirmation', ['label' => trans('auth.new_password_confirmation')]) !!}
             {!! Form::hidden('token', $token) !!}
-            {!! Form::close() !!}
         </div>
+        <div class="panel-footer">
+            {!! Form::submit(trans('auth.reset_password'), ['class'=>'btn btn-info']) !!}
+        </div>
+        {!! Form::close() !!}
     </div>
 </div>
 @endsection

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>{{ Option::get('site_title', 'Laravel') }}</title>
+    <title>@yield('title', Option::get('app_name', 'Aplikasi Laravel'))</title>
 
     {!! Html::style('assets/css/bootstrap.min.css') !!}
     {!! Html::style('assets/css/bootstrap-theme.min.css') !!}
@@ -20,6 +20,7 @@
         <div class="row">
             @yield('content')
         </div>
+        @include('layouts.partials.footer')
     </div>
 
     {!! Html::script(url('assets/js/jquery.js')) !!}
