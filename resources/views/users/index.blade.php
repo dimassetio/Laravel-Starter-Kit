@@ -1,16 +1,22 @@
 @extends('layouts.app')
 
+@section('title', trans('user.users'))
+
 @section('content')
 <h1 class="page-header">
     {!! link_to_route('users.create', trans('user.create'), [], ['class'=>'btn btn-success pull-right']) !!}
     {{ trans('user.users') }} <small>{{ $users->total() }} {{ trans('user.found') }}</small>
 </h1>
-{!! Form::open(['method'=>'get','class'=>'pull-right index-search-form']) !!}
-@if (Request::has('role'))
-{!! Form::hidden('role', Request::get('role')) !!}
-@endif
-{!! Form::text('q', Request::get('q'), ['class'=>'form-control','placeholder'=>trans('user.search')]) !!}
-{!! Form::close() !!}
+<div class="well well-sm">
+    {!! Form::open(['method'=>'get','class'=>'form-inline']) !!}
+    @if (Request::has('role'))
+    {!! Form::hidden('role', Request::get('role')) !!}
+    @endif
+    {!! Form::text('q', Request::get('q'), ['class'=>'form-control','placeholder'=>trans('user.search'),'style' => 'width:350px']) !!}
+    {!! Form::submit('Cari Member', ['class' => 'btn btn-info btn-sm']) !!}
+    {!! link_to_route('users.index','Reset',['role' => Request::get('role')],['class' => 'btn btn-default btn-sm']) !!}
+    {!! Form::close() !!}
+</div>
 
 <table class="table table-condensed">
     <thead>
@@ -30,8 +36,7 @@
             <td>{{ $user->email }}</td>
             <td>{!! $user->present()->roleslink !!}</td>
             <td>
-                {!! link_to_route('users.show','Show',[$user->id],['class'=>'btn btn-info btn-xs']) !!}
-                {!! link_to_route('users.edit','Edit',[$user->id],['class'=>'btn btn-warning btn-xs']) !!}
+                {!! link_to_route('users.show',trans('user.show'),[$user->id],['class'=>'btn btn-info btn-xs']) !!}
             </td>
         </tr>
         @empty

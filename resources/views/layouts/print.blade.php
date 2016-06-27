@@ -9,7 +9,6 @@
     <meta name="author" content="">
     <title>@yield('title', Option::get('app_name', 'Aplikasi Laravel'))</title>
 
-    {{-- {!! Html::style('assets/css/bootstrap.min.css') !!} --}}
     {!! Html::style('assets/css/print.css') !!}
     @yield('style')
 </head>

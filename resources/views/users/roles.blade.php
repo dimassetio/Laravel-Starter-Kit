@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', trans('user.roles'))
+
 @section('content')
 <h1 class="page-header">
     @if (Request::get('act') != 'add')

@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
+@section('title', trans('user.show'))
+
 @section('content')
-<h1 class="page-header">{{ $user->name }} <small>Detail</small></h1>
+<h1 class="page-header">{{ $user->name }} <small>{{ trans('user.show') }}</small></h1>
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ trans('user.user') }} Detail</h3></div>
+            <div class="panel-heading"><h3 class="panel-title">{{ trans('user.show') }}</h3></div>
             <div class="panel-body">
                 <table class="table table-condensed">
                     <tbody>
@@ -20,11 +22,11 @@
                     </tbody>
                 </table>
             </div>
+            <div class="panel-footer">
+                {!! link_to_route('users.edit', trans('user.edit'), [$user->id], ['class' => 'btn btn-warning']) !!}
+                {!! link_to_route('users.index', trans('user.back_to_index'), [], ['class' => 'btn btn-default']) !!}
+            </div>
         </div>
     </div>
-</div>
-<div class="panel-footer">
-    {!! link_to_route('users.edit', trans('app.edit'), [$user->id], ['class' => 'btn btn-warning']) !!}
-    {!! link_to_route('users.index', trans('user.back_to_index'), [], ['class' => 'btn btn-default']) !!}
 </div>
 @endsection

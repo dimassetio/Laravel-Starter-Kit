@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
+@section('title', trans('master.show'))
+
 @section('content')
-<h1 class="page-header">{{ $master->name }} <small>Detail</small></h1>
+<h1 class="page-header">{{ $master->name }} <small>{{ trans('master.show') }}</small></h1>
 <div class="row">
     <div class="col-md-4">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ trans('master.master') }} Data</h3></div>
+            <div class="panel-heading"><h3 class="panel-title">{{ trans('master.show') }}</h3></div>
             <div class="panel-body">
                 <table class="table table-condensed">
                     <tbody>

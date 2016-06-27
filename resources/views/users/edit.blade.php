@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
+@section('title', trans('user.edit'))
+
 @section('content')
 <h1 class="page-header">{{ $user->name }} <small>Edit {{ trans('user.user') }}</small></h1>
 {!! Form::model($user, ['route'=>['users.update', $user->id], 'method' => 'patch']) !!}
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ trans('user.user') }} Data</h3></div>
+            <div class="panel-heading"><h3 class="panel-title">{{ trans('user.show') }}</h3></div>
             <div class="panel-body">
                 {!! FormField::text('name', ['label' => trans('app.name')]) !!}
                 {!! FormField::text('username', ['label' => trans('auth.username')]) !!}
@@ -23,7 +25,6 @@
                 {!! FormField::password('password_confirmation', [
                     'label' => trans('auth.password_confirmation')
                 ]) !!}
-
             </div>
         </div>
     </div>

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', trans('master.create'))
+
 @section('content')
 <div class="row"><br>
     <div class="col-md-4">
@@ -12,7 +14,7 @@
             </div>
 
             <div class="panel-footer">
-                {!! Form::submit(trans('app.submit'), ['class'=>'btn btn-primary']) !!}
+                {!! Form::submit(trans('master.create'), ['class'=>'btn btn-primary']) !!}
                 {!! link_to_route('masters.index', trans('app.cancel'), [], ['class'=>'btn btn-default']) !!}
             </div>
         </div>

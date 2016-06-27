@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', trans('master.delete'))
+
 @section('content')
 <h1 class="page-header">
     <div class="pull-right">
