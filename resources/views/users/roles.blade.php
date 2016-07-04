@@ -41,14 +41,14 @@
             <div class="panel-heading"><h3 class="panel-title">{{ trans('role.delete') }}</h3></div>
             <div class="panel-body">
                 {{ trans('app.delete_confirm') }}
-                <table class="table table-condensed">
-                    <tbody>
-                        <tr><th>{{ trans('app.name') }}</th><td>{{ $role->name }}</td></tr>
-                        <tr><th>{{ trans('app.label') }}</th><td>{{ $role->label }}</td></tr>
-                        <tr><th>{{ trans('app.users_count') }}</th><td>{{ $role->users()->count() }}</td></tr>
-                    </tbody>
-                </table>
             </div>
+            <table class="table table-condensed">
+                <tbody>
+                    <tr><th>{{ trans('app.name') }}</th><td>{{ $role->name }}</td></tr>
+                    <tr><th>{{ trans('app.label') }}</th><td>{{ $role->label }}</td></tr>
+                    <tr><th>{{ trans('role.users_count') }}</th><td>{{ $role->users()->count() }}</td></tr>
+                </tbody>
+            </table>
             <div class="panel-footer">
                 {!! link_to_route('roles.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) !!}
                 @if ($role->users()->count() < 1)
@@ -59,15 +59,13 @@
         @elseif (Request::get('act') == 'show' && !is_null($role))
         <div class="panel panel-info">
             <div class="panel-heading"><h3 class="panel-title">{{ trans('role.show') }}</h3></div>
-            <div class="panel-body">
-                <table class="table table-condensed">
-                    <tbody>
-                        <tr><th>{{ trans('app.name') }}</th><td>{{ $role->name }}</td></tr>
-                        <tr><th>{{ trans('app.label') }}</th><td>{{ $role->label }}</td></tr>
-                        <tr><th>{{ trans('app.users_count') }}</th><td>{{ $role->users()->count() }}</td></tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-condensed">
+                <tbody>
+                    <tr><th>{{ trans('app.name') }}</th><td>{{ $role->name }}</td></tr>
+                    <tr><th>{{ trans('app.label') }}</th><td>{{ $role->label }}</td></tr>
+                    <tr><th>{{ trans('role.users_count') }}</th><td>{{ $role->users()->count() }}</td></tr>
+                </tbody>
+            </table>
             <div class="panel-footer">
                 {!! link_to_route('roles.index', trans('app.edit'), ['act'=>'edit','id'=>$role->id], ['class' => 'btn btn-warning']) !!}
                 {!! link_to_route('roles.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) !!}
@@ -87,32 +85,34 @@
         @endif
     </div>
     <div class="col-md-8 col-md-pull-4">
-        <table class="table table-condensed">
-            <thead>
-                <th>{{ trans('app.table_no') }}</th>
-                <th>{{ trans('app.name') }}</th>
-                <th class="text-center">{{ trans('role.user_count') }}</th>
-                <th>{{ trans('app.action') }}</th>
-            </thead>
-            <tbody>
-                @forelse($roles as $key => $role)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $role->label }}</td>
-                    <td class="text-center">{{ $role->users()->count() }}</td>
-                    <td>
-                        {!! link_to_route('roles.index','detail',['act' => 'show', 'id' => $role->id],['class'=>'btn btn-info btn-xs']) !!}
-                        {!! link_to_route('roles.index','edit',['act' => 'edit', 'id' => $role->id],['class'=>'btn btn-warning btn-xs']) !!}
-                        {!! link_to_route('roles.index','x',['act' => 'del', 'id' => $role->id],['class'=>'btn btn-danger btn-xs']) !!}
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5">{{ trans('role.not_found') }}</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+        <div class="panel panel-default">
+            <table class="table table-condensed">
+                <thead>
+                    <th>{{ trans('app.table_no') }}</th>
+                    <th>{{ trans('app.name') }}</th>
+                    <th class="text-center">{{ trans('role.users_count') }}</th>
+                    <th>{{ trans('app.action') }}</th>
+                </thead>
+                <tbody>
+                    @forelse($roles as $key => $role)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $role->label }}</td>
+                        <td class="text-center">{{ $role->users()->count() }}</td>
+                        <td>
+                            {!! link_to_route('roles.index','detail',['act' => 'show', 'id' => $role->id],['class'=>'btn btn-info btn-xs']) !!}
+                            {!! link_to_route('roles.index','edit',['act' => 'edit', 'id' => $role->id],['class'=>'btn btn-warning btn-xs']) !!}
+                            {!! link_to_route('roles.index','x',['act' => 'del', 'id' => $role->id],['class'=>'btn btn-danger btn-xs']) !!}
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5">{{ trans('role.not_found') }}</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

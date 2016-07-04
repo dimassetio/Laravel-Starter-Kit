@@ -41,14 +41,14 @@
             <div class="panel-heading"><h3 class="panel-title">{{ trans('permission.delete') }}</h3></div>
             <div class="panel-body">
                 {{ trans('app.delete_confirm') }}
-                <table class="table table-condensed">
-                    <tbody>
-                        <tr><th>{{ trans('app.name') }}</th><td>{{ $permission->name }}</td></tr>
-                        <tr><th>{{ trans('app.label') }}</th><td>{{ $permission->label }}</td></tr>
-                        <tr><th>{{ trans('app.roles_count') }}</th><td>{{ $permission->roles()->count() }}</td></tr>
-                    </tbody>
-                </table>
             </div>
+            <table class="table table-condensed">
+                <tbody>
+                    <tr><th>{{ trans('app.name') }}</th><td>{{ $permission->name }}</td></tr>
+                    <tr><th>{{ trans('app.label') }}</th><td>{{ $permission->label }}</td></tr>
+                    <tr><th>{{ trans('permission.roles_count') }}</th><td>{{ $permission->roles()->count() }}</td></tr>
+                </tbody>
+            </table>
             <div class="panel-footer">
                 {!! link_to_route('permissions.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) !!}
                 @if ($permission->roles()->count() < 1)
@@ -59,15 +59,13 @@
         @elseif (Request::get('act') == 'show' && !is_null($permission))
         <div class="panel panel-info">
             <div class="panel-heading"><h3 class="panel-title">{{ trans('permission.show') }}</h3></div>
-            <div class="panel-body">
-                <table class="table table-condensed">
-                    <tbody>
-                        <tr><th>{{ trans('app.name') }}</th><td>{{ $permission->name }}</td></tr>
-                        <tr><th>{{ trans('app.label') }}</th><td>{{ $permission->label }}</td></tr>
-                        <tr><th>{{ trans('app.roles_count') }}</th><td>{{ $permission->roles()->count() }}</td></tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-condensed">
+                <tbody>
+                    <tr><th>{{ trans('app.name') }}</th><td>{{ $permission->name }}</td></tr>
+                    <tr><th>{{ trans('app.label') }}</th><td>{{ $permission->label }}</td></tr>
+                    <tr><th>{{ trans('permission.roles_count') }}</th><td>{{ $permission->roles()->count() }}</td></tr>
+                </tbody>
+            </table>
             <div class="panel-footer">
                 {!! link_to_route('permissions.index', trans('app.edit'), ['act'=>'edit','id'=>$permission->id], ['class' => 'btn btn-warning']) !!}
                 {!! link_to_route('permissions.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) !!}
@@ -75,27 +73,27 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">{{ trans('role.roles') }}</h3></div>
-            <div class="panel-body">
-                <table class="table table-condensed">
-                    <tbody>
-                        @foreach($permission->roles as $role)
-                        <tr>
-                            <td>{{ $role->name }}</td>
-                            <td>{{ $role->label }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-condensed">
+                <tbody>
+                    @foreach($permission->roles as $role)
+                    <tr>
+                        <td>{{ $role->name }}</td>
+                        <td>{{ $role->label }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
         @endif
     </div>
     <div class="col-md-8 col-md-pull-4">
+        <div class="panel panel-default">
         <table class="table table-condensed">
             <thead>
                 <th>{{ trans('app.table_no') }}</th>
                 <th>{{ trans('app.name') }}</th>
                 <th>{{ trans('app.label') }}</th>
+                <th class="text-center">{{ trans('permission.roles_count') }}</th>
                 <th>{{ trans('app.action') }}</th>
             </thead>
             <tbody>
@@ -104,6 +102,7 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $permission->name }}</td>
                     <td>{{ $permission->label }}</td>
+                    <td class="text-center">{{ $permission->roles_count }}</td>
                     <td>
                         {!! link_to_route('permissions.index','detail',['act' => 'show', 'id' => $permission->id],['class'=>'btn btn-info btn-xs']) !!}
                         {!! link_to_route('permissions.index','edit',['act' => 'edit', 'id' => $permission->id],['class'=>'btn btn-warning btn-xs']) !!}
@@ -117,6 +116,7 @@
                 @endforelse
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 @endsection

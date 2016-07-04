@@ -18,7 +18,7 @@ class PermissionsController extends Controller {
 			$permission = $this->requireById($req->get('id'));
 		}
 
-		$permissions = Permission::whereType(1)->get();
+		$permissions = Permission::whereType(1)->withCount('roles')->get();
 		return view('users.permissions',compact('permissions','permission'));
 	}
 
