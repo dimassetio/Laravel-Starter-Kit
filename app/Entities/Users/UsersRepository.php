@@ -64,4 +64,11 @@ class UsersRepository extends BaseRepository
     {
         return Role::where('type', 0)->lists('label','id')->all();
     }
+
+    public function delete($userId)
+    {
+        $user = $this->requireById($userId);
+        $user->roles()->detach();
+        return $user->delete();
+    }
 }

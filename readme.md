@@ -21,6 +21,35 @@ This is a starter kit for building new web application with **Laravel 5.2**.
     - Delete Backup File
     - Upload Backup File from local machine
 
+## How to use?
+1. Download zip file and Extract to your localhost document directory
+- Or cd into laravel project root and clone the repo
+- (within your favorited terminal) install dependencies with command: `composer install`
+- *wait until it done*
+- Don't forget to set permission to storage folder: `sudo chmod 777 -R storage/`
+- Migrate database with command: `php artisan migrate --seed`
+- Go to `app/Providers/AuthServiceProvider.php` than uncomment line `30-34` and line `45`
+    ```php
+    public function boot(GateContract $gate)
+    {
+        $this->registerPolicies($gate);
+
+        // foreach ($this->getPermissions() as $permission) {
+        //     $gate->define($permission->name, function ($user) use ($permission) {
+        //         return $user->hasPermission($permission);
+        //     });
+        // }
+
+    }
+
+    protected function getPermissions()
+    {
+        // return Permission::with('roles')->get();
+    }
+    ```
+- Run your installed application with: `php artisan serve`
+- Open `http://localhost:8000` from your browser to access the application
+
 ### What Seeders do?
 1. Add 2 Users: **Admin** (with password: *admin*) and **Member** (with password: *member*)
 - Add 2 Roles: `admin` and `member`
@@ -28,15 +57,6 @@ This is a starter kit for building new web application with **Laravel 5.2**.
 - Assign **Member** user to `member` role
 - Add 4 Permissions: `manage_users`, `manage_options`, `manage_backups`, and `manage_role_permissions`
 - Assign 4 mentioned permission above to `admin` role
-
-## How to use?
-1. Download zip file and Extract to your localhost document directory
-- Or cd into laravel project root and clone the repo
-- (within your favorited terminal) install dependencies with command: `composer install`
-- *wait until it done*
-- don't forget to set permission to storage folder: `sudo chmod 777 -R storage/`
-- run your installed application with: `php artisan serve`
-- open `http://localhost:8000/` from your browser to access the application
 
 ## Custom Services
 

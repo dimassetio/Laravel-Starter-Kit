@@ -38,7 +38,7 @@
     </div>
 </div>
 <div class="panel-footer">
-    {!! Form::submit(trans('app.update'), ['class'=>'btn btn-warning']) !!}
+    {!! Form::submit(trans('user.update'), ['class'=>'btn btn-warning']) !!}
     {!! link_to_route('users.show', trans('app.show'), [$user->id], ['class' => 'btn btn-info']) !!}
     {!! link_to_route('users.index', trans('user.back_to_index'), [], ['class' => 'btn btn-default']) !!}
     {!! link_to_route('users.delete', trans('app.delete'), [$user->id], ['class'=>'btn btn-danger pull-right']) !!}

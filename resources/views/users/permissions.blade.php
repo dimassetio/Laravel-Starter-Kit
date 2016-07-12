@@ -19,6 +19,7 @@
                 {!! Form::open(['route'=>'permissions.store']) !!}
                 {!! FormField::text('name') !!}
                 {!! FormField::text('label') !!}
+                {!! FormField::checkboxes('role', $roles, ['label' => trans('user.role'),'list_style' => 'unstyled']) !!}
                 {!! Form::submit(trans('permission.create'), ['class' => 'btn btn-success']) !!}
                 {!! link_to_route('permissions.index', trans('app.cancel'), [], ['class'=>'btn btn-default pull-right']) !!}
                 {!! Form::close() !!}

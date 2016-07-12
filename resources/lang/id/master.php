@@ -6,6 +6,7 @@ return [
     'name'          => 'Nama Master',
     'create'        => 'Input Master Baru',
     'created'       => 'Input Master baru telah berhasil.',
+    'show'          => 'Detail Master',
     'edit'          => 'Edit Master',
     'update'        => 'Update Master',
     'updated'       => 'Update data Master telah berhasil.',

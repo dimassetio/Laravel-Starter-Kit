@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Users\Permissions;
 
 use App\Http\Requests\Request;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exception\HttpResponseException;
 
 class CreateRequest extends Request {
 
@@ -26,7 +28,7 @@ class CreateRequest extends Request {
 		return [
 			'name' => 'required|max:60|unique:roles_permissions,name',
 			'label' => 'required|max:60',
+			'role' => 'array',
 		];
 	}
-
 }

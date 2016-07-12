@@ -101,7 +101,10 @@ class FormField
         if (isset($options['disabled']) && $options['disabled'] == true) { $fieldParams += ['disabled']; }
         if (isset($options['required']) && $options['required'] == true) { $fieldParams += ['required']; }
         if (isset($options['multiple']) && $options['multiple'] == true) { $fieldParams += ['multiple', 'name' => $name . '[]']; }
-        if (isset($options['placeholder'])) { $fieldParams += ['placeholder' => $options['placeholder']]; }
+        if (isset($options['placeholder']))
+            $fieldParams += ['placeholder' => $options['placeholder']];
+        else
+            $fieldParams += ['placeholder' => '-- Pilih ' . str_split_ucwords(str_replace('_id', '', $name)) . ' --'];
 
         $htmlForm .= $this->setFormFieldLabel($name, $options);
 
@@ -286,7 +289,16 @@ class FormField
         return $htmlForm;
     }
 
-    public function setFormFieldLabel($name, $options)
+    public function price($name, $options = [])
+    {
+        $options['type'] = 'number';
+        $options['addon'] = ['before' => isset($options['currency']) ? $options['currency'] : 'Rp'];
+        $options['class'] = 'text-right';
+        $options['min'] = '0';
+        return $this->text($name, $options);
+    }
+
+    private function setFormFieldLabel($name, $options)
     {
         if (isset($options['label']) && $options['label'] != false) {
             $label = isset($options['label']) ? $options['label'] : str_split_ucwords($name);

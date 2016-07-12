@@ -7,7 +7,7 @@
         </button>
         <a class="navbar-brand" title="Home | {{ Option::get('app_description', 'Laravel app description') }}" href="{{ route('home') }}">
             <img src="{{ url('assets/imgs/logo.png') }}" alt="Logo STIMI Banjarmasin" width="40px">
-            {{ Option::get('app_title', 'Laravel') }}
+            {{ Option::get('app_name', 'Laravel') }}
         </a>
     </div>
     <!-- /.navbar-header -->

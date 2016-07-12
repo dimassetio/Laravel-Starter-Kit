@@ -28,7 +28,7 @@
                 ]) !!}
             </div>
             <div class="panel-footer">
-                {!! Form::submit(trans('app.submit'), ['class'=>'btn btn-primary']) !!}
+                {!! Form::submit(trans('user.create'), ['class'=>'btn btn-primary']) !!}
                 {!! link_to_route('users.index', trans('app.cancel'), [], ['class'=>'btn btn-default']) !!}
             </div>
         </div>
