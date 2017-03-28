@@ -26,9 +26,13 @@ This is a starter kit for building new web application with **Laravel 5.2**.
 - Or cd into laravel project root and clone the repo
 - (within your favorited terminal) install dependencies with command: `composer install`
 - *wait until it done*
-- Don't forget to set permission to storage folder: `sudo chmod 777 -R storage/`
+- Duplicate **.env.example** into **.env**
+- Set your database credential to **.env** file
+- Run **key:generate** command: `php artisan key:generate`
+- Set proper permission to storage folder: `sudo chmod 777 -R storage`
 - Migrate database with command: `php artisan migrate --seed`
 - Go to `app/Providers/AuthServiceProvider.php` than uncomment line `30-34` and line `45`
+
     ```php
     public function boot(GateContract $gate)
     {
@@ -47,8 +51,12 @@ This is a starter kit for building new web application with **Laravel 5.2**.
         // return Permission::with('roles')->get();
     }
     ```
+
 - Run your installed application with: `php artisan serve`
 - Open `http://localhost:8000` from your browser to access the application
+- Login with seeded credential:
+    + Login ID : `admin`, password: `admin`
+    + Login ID : `member`, password: `member`
 
 ### What Seeders do?
 1. Add 2 Users: **Admin** (with password: *admin*) and **Member** (with password: *member*)
