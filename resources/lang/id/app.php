@@ -38,4 +38,6 @@ return [
     'end_date'              => 'Tanggal Selesai',
     'change_photo'          => 'Ganti Foto',
     'welcome'               => 'Selamat Datang',
+    'currency'               => 'Rp',
+    'dashboard'               => 'Dashboard',
 ];

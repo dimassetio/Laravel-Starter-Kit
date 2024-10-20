@@ -7,18 +7,20 @@
  */
 function formatNo($number)
 {
-    return number_format($number, 0,',','.');
+    return number_format($number, 0, ',', '.');
 }
 
 function formatRp($number)
 {
-    if ($number == 0) { return '-'; }
+    if ($number == 0) {
+        return '-';
+    }
     return 'Rp. ' . formatNo($number);
 }
 
 function formatDecimal($number)
 {
-    return number_format($number, 2,',','.');
+    return number_format($number, 2, ',', '.');
 }
 
 /**
@@ -41,10 +43,8 @@ function delete_button($form_params = [], $button_label = 'Delete', $button_opti
         $button_options['title'] = 'Delete this record';
 
     $htmlForm = Form::open($form_params);
-    if (!empty($hiddenFields))
-    {
-        foreach ($hiddenFields as $k => $v)
-        {
+    if (!empty($hiddenFields)) {
+        foreach ($hiddenFields as $k => $v) {
             $htmlForm .= Form::hidden($k, $v);
         }
     }
@@ -70,7 +70,8 @@ function formatDate($date)
     throw new App\Exceptions\InvalidDateException('Kesalahan format tanggal');
 }
 
-function dateId($date) {
+function dateId($date)
+{
     if (is_null($date) || $date == '0000-00-00')
         return '-';
 
@@ -84,11 +85,13 @@ function dateId($date) {
     throw new App\Exceptions\InvalidDateException('Kesalahan format tanggal');
 }
 
-function monthNumber($number) {
+function monthNumber($number)
+{
     return str_pad($number, 2, "0", STR_PAD_LEFT);
 }
 
-function monthId($monthNumber) {
+function monthId($monthNumber)
+{
     if (is_null($monthNumber))
         return $monthNumber;
 
@@ -132,7 +135,7 @@ function str_split_ucwords($string)
 
 function getDays()
 {
-    return $days = [1 => 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    return $days = [1 => 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 }
 
 function getDay($dayIndex = null)
@@ -150,28 +153,17 @@ function sanitizeNumber($number)
 
 function formatSizeUnits($bytes)
 {
-    if ($bytes >= 1073741824)
-    {
+    if ($bytes >= 1073741824) {
         $bytes = number_format($bytes / 1073741824, 2) . ' GB';
-    }
-    elseif ($bytes >= 1048576)
-    {
+    } elseif ($bytes >= 1048576) {
         $bytes = number_format($bytes / 1048576, 2) . ' MB';
-    }
-    elseif ($bytes >= 1024)
-    {
+    } elseif ($bytes >= 1024) {
         $bytes = number_format($bytes / 1024, 2) . ' KB';
-    }
-    elseif ($bytes > 1)
-    {
+    } elseif ($bytes > 1) {
         $bytes = $bytes . ' bytes';
-    }
-    elseif ($bytes == 1)
-    {
+    } elseif ($bytes == 1) {
         $bytes = $bytes . ' byte';
-    }
-    else
-    {
+    } else {
         $bytes = '0 bytes';
     }
 

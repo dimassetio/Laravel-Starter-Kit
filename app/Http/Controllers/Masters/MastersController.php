@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Masters;
 
 use App\Http\Requests\Masters\CreateRequest;
 use App\Http\Requests\Masters\UpdateRequest;
@@ -23,6 +23,7 @@ class MastersController extends Controller
 
 	public function index(Request $req)
 	{
+		// $masters = [];
 		$masters = $this->repo->getAll($req->get('q'));
 		return view('masters.index', compact('masters'));
 	}
@@ -48,6 +49,7 @@ class MastersController extends Controller
 	public function edit($masterId)
 	{
 		$master = $this->repo->requireById($masterId);
+		//dd($master);
 		return view('masters.edit', compact('master'));
 	}
 

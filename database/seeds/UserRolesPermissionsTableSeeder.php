@@ -21,6 +21,7 @@ class UserRolesPermissionsTableSeeder extends Seeder
             ['type' => 1, 'name' => 'manage_role_permissions', 'label' => 'Manage Users Role\'s Permission'],
             ['type' => 1, 'name' => 'manage_backups', 'label' => 'Manage Database Backups'],
             ['type' => 1, 'name' => 'manage_options', 'label' => 'Manage Site Options'],
+            ['type' => 1, 'name' => 'manage_products', 'label' => 'Manage Products and Sales'],
         ]);
     }
 }

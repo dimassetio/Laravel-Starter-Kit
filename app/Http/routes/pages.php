@@ -3,6 +3,14 @@
 /**
  * Pages Routes
  */
-Route::get('/', function () { return redirect()->route('home'); });
-Route::get('about', ['as'=>'about' , function () { return view('pages.about'); }, 'middleware'=>['web','auth']]);
-Route::get('home', ['as'=>'home' , function () { return view('pages.home'); }, 'middleware'=>['web','auth']]);
+
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+  return redirect()->route('home');
+});
+Route::get('about', ['as' => 'about', function () {
+  return view('pages.about');
+}, 'middleware' => ['web', 'auth']]);
+Route::get('home', 'HomeController@index')->name('home')->middleware(['web', 'auth']);
