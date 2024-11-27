@@ -5,7 +5,7 @@
                 <a href="{{ route('home') }}"><i class="fa fa-home fa-fw"></i>
                     {{ trans('app.dashboard') }}</a>
             </li>
-            @can('manage_products')
+            {{-- @can('manage_products')
                 <li>
                     <a href="{{ route('sales.index') }}"><i class="fa fa-shopping-cart fa-fw"></i>
                         {{ trans('sale.sales') }}</a>
@@ -14,7 +14,7 @@
                     <a href="{{ route('products.index') }}"><i class="fa fa-cubes fa-fw"></i>
                         {{ trans('product.products') }}</a>
                 </li>
-            @endcan
+            @endcan --}}
             @can('manage_users')
                 <li>
                     <a href="{{ route('users.index') }}"><i class="fa fa-users fa-fw"></i> {{ trans('user.users') }} <span
